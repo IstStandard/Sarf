@@ -166,7 +166,7 @@ public class AuthLogic : BaseLogic
         if (token == null)
             return new RefreshResult
             {
-                Message = "Invalid token",  // TODO: Resources
+                Message = SarfRes.InvalidRefreshToken,
                 HttpCode = HttpStatusCode.BadRequest,
                 Status = false
             };
@@ -174,7 +174,7 @@ public class AuthLogic : BaseLogic
         if (token.ExpiresAt < DateTime.Now)
             return new RefreshResult
             {
-                Message = "Token was expired", // TODO: Resources
+                Message = SarfRes.TokenWasExpired,
                 HttpCode = HttpStatusCode.BadRequest,
                 Status = false
             };
@@ -182,7 +182,7 @@ public class AuthLogic : BaseLogic
         if (token.RevokedAt.HasValue)
             return new RefreshResult
             {
-                Message = "Token was already used", // TODO: Resources
+                Message = SarfRes.TokenAlreadyUsed,
                 HttpCode = HttpStatusCode.BadRequest,
                 Status = false
             };
@@ -213,7 +213,7 @@ public class AuthLogic : BaseLogic
             };
 
         var user = _db.Users.FirstOrDefault(x => x.Uid == userUid.Value);
-        if (user == null) // ??
+        if (user == null) // TODO: Notify
             return new FailedLogicResult
             {
                 Message = SarfRes.HackedJwt,
