@@ -39,4 +39,8 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\StandardShared\StandardShared\StandardShared.csproj" />
+    </ItemGroup>
+
 </Project>
