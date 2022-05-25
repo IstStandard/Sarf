@@ -106,6 +106,15 @@ namespace Sarf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid refresh token.
+        /// </summary>
+        internal static string InvalidRefreshToken {
+            get {
+                return ResourceManager.GetString("InvalidRefreshToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username must be longer than {0} symbols and shorter than {1}.
         /// </summary>
         internal static string InvalidUsernameLength {
@@ -120,6 +129,24 @@ namespace Sarf.Resources {
         internal static string SomethingWentWrong {
             get {
                 return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token already used.
+        /// </summary>
+        internal static string TokenAlreadyUsed {
+            get {
+                return ResourceManager.GetString("TokenAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token was expired.
+        /// </summary>
+        internal static string TokenWasExpired {
+            get {
+                return ResourceManager.GetString("TokenWasExpired", resourceCulture);
             }
         }
         

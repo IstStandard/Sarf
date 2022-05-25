@@ -35,4 +35,13 @@
     <data name="SomethingWentWrong" xml:space="preserve">
         <value>Что-то пошло не так</value>
     </data>
+    <data name="InvalidRefreshToken" xml:space="preserve">
+        <value>Неверный refresh токен</value>
+    </data>
+    <data name="TokenWasExpired" xml:space="preserve">
+        <value>Токен истек</value>
+    </data>
+    <data name="TokenAlreadyUsed" xml:space="preserve">
+        <value>Токен уже был использован</value>
+    </data>
 </root>

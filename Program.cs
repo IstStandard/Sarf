@@ -12,6 +12,12 @@ builder.Services.AddSingleton<JwtUtils>();
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+var supportedCultures = new[] { "en-US", "ru-RU" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
 app.MapGrpcService<SarfAuthService>();
 app.MapGet("/",
     () =>
