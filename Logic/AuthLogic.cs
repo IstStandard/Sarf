@@ -85,7 +85,7 @@ public class AuthLogic : BaseLogic
         if (user == null)
             return new SignInResult
             {
-                Message = SarfRes.InvalidAuthCredentials,
+                Result = SarfRes.InvalidAuthCredentials,
                 HttpCode = HttpStatusCode.Unauthorized,
                 Status = false
             };
@@ -93,7 +93,7 @@ public class AuthLogic : BaseLogic
         if (user.Password != model.Password.GetSha512())
             return new SignInResult
             {
-                Message = SarfRes.InvalidAuthCredentials,
+                Result = SarfRes.InvalidAuthCredentials,
                 HttpCode = HttpStatusCode.Unauthorized,
                 Status = false
             };
@@ -118,25 +118,25 @@ public class AuthLogic : BaseLogic
         if (user != null)
             return new FailedLogicResult
             {
-                Message = SarfRes.UserAlreadyExists
+                Result = SarfRes.UserAlreadyExists
             };
 
         if (model.Username.Length is < 3 or > 25)
             return new FailedLogicResult
             {
-                Message = String.Format(SarfRes.InvalidUsernameLength, "3", "25")
+                Result = String.Format(SarfRes.InvalidUsernameLength, "3", "25")
             };
 
         if (model.Password.Length is < 7 or > 125)
             return new FailedLogicResult
             {
-                Message = String.Format(SarfRes.InvalidPasswordLength, "7", "125")
+                Result = String.Format(SarfRes.InvalidPasswordLength, "7", "125")
             };
 
         if (Utils.Utils.ParseEmail(model.Email) == null)
             return new FailedLogicResult
             {
-                Message = SarfRes.InvalidEmail
+                Result = SarfRes.InvalidEmail
             };
 
         var result = new User
@@ -162,7 +162,7 @@ public class AuthLogic : BaseLogic
         {
             return new FailedLogicResult
             {
-                Message = SarfRes.SomethingWentWrong,
+                Result = SarfRes.SomethingWentWrong,
                 HttpCode = HttpStatusCode.InternalServerError
             };
         }
@@ -176,7 +176,7 @@ public class AuthLogic : BaseLogic
         if (token == null)
             return new RefreshResult
             {
-                Message = SarfRes.InvalidRefreshToken,
+                Result = SarfRes.InvalidRefreshToken,
                 HttpCode = HttpStatusCode.BadRequest,
                 Status = false
             };
@@ -184,7 +184,7 @@ public class AuthLogic : BaseLogic
         if (token.ExpiresAt < DateTime.Now)
             return new RefreshResult
             {
-                Message = SarfRes.TokenWasExpired,
+                Result = SarfRes.TokenWasExpired,
                 HttpCode = HttpStatusCode.BadRequest,
                 Status = false
             };
@@ -192,7 +192,7 @@ public class AuthLogic : BaseLogic
         if (token.RevokedAt.HasValue)
             return new RefreshResult
             {
-                Message = SarfRes.TokenAlreadyUsed,
+                Result = SarfRes.TokenAlreadyUsed,
                 HttpCode = HttpStatusCode.BadRequest,
                 Status = false
             };
@@ -218,7 +218,7 @@ public class AuthLogic : BaseLogic
         if (userUid == null)
             return new FailedLogicResult
             {
-                Message = SarfRes.InvalidJwtToken,
+                Result = SarfRes.InvalidJwtToken,
                 HttpCode = HttpStatusCode.Unauthorized
             };
 
@@ -226,7 +226,7 @@ public class AuthLogic : BaseLogic
         if (user == null) // TODO: Notify
             return new FailedLogicResult
             {
-                Message = SarfRes.HackedJwt,
+                Result = SarfRes.HackedJwt,
                 HttpCode = HttpStatusCode.Unauthorized
             };
 
@@ -245,7 +245,10 @@ public class AuthLogic : BaseLogic
     {
         var userUid = _jwtUtils.ValidateJwtToken(model.Token);
         return userUid.HasValue
-            ? new SuccessLogicResult()
+            ? new SuccessLogicResult
+            {
+                Result = userUid.Value
+            }
             : new FailedLogicResult
             {
                 HttpCode = HttpStatusCode.Unauthorized

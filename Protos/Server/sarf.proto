@@ -8,7 +8,7 @@ import "google/protobuf/wrappers.proto";
 service AuthService {
   rpc SignUp (SignUpRequest) returns (GenericResponse);
   rpc SignIn (SignInRequest) returns (SignInResponse);
-  rpc IsTokenValid (RequestWithToken) returns (GenericResponse);
+  rpc IsTokenValid (RequestWithToken) returns (IsTokenValidResponse);
   rpc Logout (RequestWithTokenAndIp) returns (GenericResponse);
   rpc Refresh (RequestWithTokenAndIp) returns (RefreshResponse);
 }
@@ -16,13 +16,20 @@ service AuthService {
 message GenericResponse {
   bool status = 1;
   string message = 2;
+  int32 status_code = 3;
+}
+
+message IsTokenValidResponse {
+  bool status = 1;
+  google.protobuf.StringValue userUid = 2;
+  int32 status_code = 3;
 }
 
 message SignUpRequest {
   string email = 1;
   string username = 2;
   string password = 3;
-  
+
   google.protobuf.StringValue firstName = 4;
   google.protobuf.StringValue lastName = 5;
   google.protobuf.StringValue patronymic = 6;
@@ -45,6 +52,7 @@ message SignInResponse {
   string message = 2;
   google.protobuf.StringValue token = 3;
   google.protobuf.StringValue refreshToken = 4;
+  int32 status_code = 5;
 }
 
 message RefreshResponse {
@@ -52,6 +60,7 @@ message RefreshResponse {
   string message = 2;
   google.protobuf.StringValue token = 3;
   google.protobuf.StringValue refreshToken = 4;
+  int32 status_code = 5;
 }
 
 message RequestWithTokenAndIp {

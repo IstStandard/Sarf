@@ -26,9 +26,10 @@ public sealed class SarfAuthService : AuthService.AuthServiceBase
         return Task.FromResult(new SignInResponse
         {
             Status = result.Status,
-            Message = result.Message,
+            Message = result.Result?.ToString(),
             Token = result.Token,
-            RefreshToken = result.RefreshToken
+            RefreshToken = result.RefreshToken,
+            StatusCode = (int)result.HttpCode
         });
     }
 
@@ -51,7 +52,8 @@ public sealed class SarfAuthService : AuthService.AuthServiceBase
         return Task.FromResult(new GenericResponse
         {
             Status = result.Status,
-            Message = result.Message
+            Message = result.Result?.ToString(),
+            StatusCode = (int)result.HttpCode
         });
     }
 
@@ -66,9 +68,10 @@ public sealed class SarfAuthService : AuthService.AuthServiceBase
         return Task.FromResult(new RefreshResponse
         {
             Status = result.Status,
-            Message = result.Message,
+            Message = result.Result?.ToString(),
             Token = result.Token,
-            RefreshToken = result.RefreshToken
+            RefreshToken = result.RefreshToken,
+            StatusCode = (int)result.HttpCode
         });
     }
 
@@ -83,21 +86,23 @@ public sealed class SarfAuthService : AuthService.AuthServiceBase
         return Task.FromResult(new GenericResponse
         {
             Status = result.Status,
-            Message = result.Message
+            Message = result.Result?.ToString(),
+            StatusCode = (int)result.HttpCode
         });
     }
 
-    public override Task<GenericResponse> IsTokenValid(RequestWithToken request, ServerCallContext context)
+    public override Task<IsTokenValidResponse> IsTokenValid(RequestWithToken request, ServerCallContext context)
     {
         var result = _logic.IsTokenValid(new AuthLogic.IsTokenValidRequest
         {
             Token = request.Token
         });
         
-        return Task.FromResult(new GenericResponse
+        return Task.FromResult(new IsTokenValidResponse
         {
             Status = result.Status,
-            Message = result.Message
+            UserUid = result.Result?.ToString(),
+            StatusCode = (int)result.HttpCode
         });
     }
 }
