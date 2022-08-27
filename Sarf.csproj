@@ -7,21 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.48.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.4" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.17.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Protobuf Include="Protos\Server\sarf.proto">
-        <GrpcServices>Server</GrpcServices>
-        <Access>Public</Access>
-        <ProtoCompile>True</ProtoCompile>
-        <CompileOutputs>True</CompileOutputs>
-        <OutputDir>obj\Debug\net6.0\</OutputDir>
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
     </ItemGroup>
 
     <ItemGroup>
