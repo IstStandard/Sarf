@@ -1,6 +1,6 @@
 bin/
 obj/
 .idea/
-.git/
+.git*
+init_db.sh
 LICENSE
-.gitignore
