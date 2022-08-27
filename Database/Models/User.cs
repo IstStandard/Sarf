@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using Sarf.Database.Extra;
+using StandardShared.Database.Models;
 
 namespace Sarf.Database.Models;
 

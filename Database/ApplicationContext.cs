@@ -1,25 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using Sarf.Database.Models;
+using StandardShared.Database;
 
 namespace Sarf.Database;
 
-public sealed class ApplicationContext : DbContext
+public sealed class ApplicationContext : BaseDbContext
 {
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<BlackList> BlackLists { get; set; } = null!;
     public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
-    private readonly IConfiguration _configuration;
-
-    public ApplicationContext(IConfiguration configuration)
+    public ApplicationContext(IConfiguration configuration) : base(configuration)
     {
-        _configuration = configuration;
-        Database.EnsureCreated();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration["Database:ConnectionString"]);
+        optionsBuilder.UseNpgsql(Configuration["Database:ConnectionString"]);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

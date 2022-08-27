@@ -5,10 +5,6 @@ using Sarf.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-
-// Add services to the container.
 builder.Services.AddGrpc();
 builder.Services.AddDbContext<ApplicationContext>();
 builder.Services.AddSingleton<AuthLogic>();
@@ -16,7 +12,6 @@ builder.Services.AddSingleton<JwtUtils>();
 
 var app = builder.Build();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-// Configure the HTTP request pipeline.
 var supportedCultures = new[] { "en-US", "ru-RU" };
 var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
     .AddSupportedCultures(supportedCultures)

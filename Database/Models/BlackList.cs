@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using StandardShared.Database.Models;
 
 namespace Sarf.Database.Models;
 
